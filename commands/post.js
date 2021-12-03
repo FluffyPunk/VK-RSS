@@ -4,22 +4,18 @@ async function attachToString(attachArr = []) {
   let result = new String();
   attachArr.forEach((media) => {
     if (media.type === "photo") {
-      console.log(true);
       result += `photo${media.photo.owner_id}_${media.photo.id}_${media.photo.access_key},`;
     }
     if (media.type === "video") {
-      console.log(true);
       result += `video${media.video.owner_id}_${media.video.id}_${media.video.access_key},`;
     }
     if (media.type === "audio") {
-      console.log(true);
       if (!media.audio.access_key) {
         result += `audio${media.audio.owner_id}_${media.audio.id},`;
       } else
         result += `audio${media.audio.owner_id}_${media.audio.id}_${media.audio.access_key},`;
     }
     if (media.type === "audio_message") {
-      console.log(true);
       result += `audio_message${media.audio_message.owner_id}_${media.audio_message.id}_${media.audio_message.access_key},`;
     }
   });
@@ -70,13 +66,12 @@ module.exports = {
                 }
               );
             let skrepka = await attachToString(post.attachments);
-            console.log(post.attachments);
             groupInfo.subList.forEach((id) => {
               setTimeout(
                 () =>
                   vk.call("messages.send", {
                     user_id: id,
-                    message: `Отвечаю ${post.text}`,
+                    message: `${post.text}`,
                     attachment: skrepka,
                     random_id: easyvk.randomId(),
                   }),
